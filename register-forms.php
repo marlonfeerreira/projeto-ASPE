@@ -1,3 +1,6 @@
+<?php
+require_once("bd.php");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,6 +26,24 @@
         $atendimentoAssessoria = $_POST["atendimento_assessoria"];
         $encaminhamentos = $_POST["encaminhamentos"];
 
+        
+        $stmt = $pdo->prepare("INSERT INTO atendimento (nome_discente,  matrícula, curso, data_solicitação, solicitante, setor_solicitante, periodo, modalidade, ano, relato_solicitação, atendimento_assessoria_pedagogica, encaminhamentos) VALUES (:nome_discente, :matricula, :curso, :data_solicitacao, :solicitante, :setor_solicitante, :periodo, :modalidade, :ano, :relato_solicitacao, :atendimento_assessoria, :encaminhamentos)");
+        $stmt->bindParam(':nome_discente', $nomeDiscente);
+        $stmt->bindParam(':matricula', $matricula);
+        $stmt->bindParam(':curso', $curso);
+        $stmt->bindParam(':data_solicitacao', $dataSolicitacao);
+        $stmt->bindParam(':solicitante', $solicitante);
+        $stmt->bindParam(':setor_solicitante', $setorSolicitante);
+        $stmt->bindParam(':periodo', $periodo);
+        $stmt->bindParam(':modalidade', $modalidade);
+        $stmt->bindParam(':ano', $ano);
+        $stmt->bindParam(':relato_solicitacao', $relatoSolicitacao);
+        $stmt->bindParam(':atendimento_assessoria', $atendimentoAssessoria);
+        $stmt->bindParam(':encaminhamentos', $encaminhamentos);
+
+        $stmt->execute();
+
+
         $caminhoArquivo = "registros_atendimento.txt";
 
         $dadosRegistro = "Nome do Discente: $nomeDiscente\n" .
@@ -37,6 +58,10 @@
             "Relato da Solicitação: $relatoSolicitacao\n" .
             "Atendimento da Assessoria Pedagógica: $atendimentoAssessoria\n" .
             "Encaminhamentos: $encaminhamentos\n\n";
+        
+
+        $pdo->query("INSERT INTO atendimento(nome_discente,  matrícula, curso, data_solicitação, solicitante, setor_solicitante, periodo, modalidade, ano, relato_solicitação, atendimento_assessoria_pedagogica, encaminhamentos)
+        VALUES $nomeDiscente, $matricula, $curso, $dataSolicitacao, $solicitante, $setorSolicitante, $periodo, $modalidade, $ano, $relatoSolicitacao, $atendimentoAssessoria, $encaminhamentos");
 
         $arquivo = fopen($caminhoArquivo, "a");
         fwrite($arquivo, $dadosRegistro);
