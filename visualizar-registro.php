@@ -1,3 +1,6 @@
+<?php
+  require_once("bd.php");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -35,73 +38,37 @@
               <div class="perfil-XXXXXXXXXXX">Perfil (Admin)</div>
             </div>
             <button class="text-wrapper">Sair</button>
+
           </div>
         </div>
       </div>
 
       <div class="p-12 flex flex-col gap-8">
         <p class="text-[28px] font-medium text-[rgba(63, 63, 63, 0.87)]">Vizualizar Registro</p>
-        <div class="flex flex-wrap gap-4">
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-12">Nome do Discente:</div>
-            <input type="text" name="nome_discente" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-11">Matrícula:</div>
-            <input type="text" name="matricula" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-10">Curso:</div>
-            <input type="text" name="curso" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-9">Data da Solicitação:</div>
-            <input type="text" name="data_solicitacao" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-8">Solicitante:</div>
-            <input type="text" name="solicitante" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-7">Setor Solicitante:</div>
-            <input type="text" name="setor_solicitante" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-6">Período:</div>
-            <input type="text" name="periodo" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-5">Modalidade:</div>
-            <input type="text" name="modalidade" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-4">Ano:</div>
-            <input type="text" name="ano" class="p-2 bg-[#e8f0fe] rounded-md border border-black">
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-8 ">
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-3">Relato da Solicitação:</div>
-            <textarea name="relato_solicitacao" id="relato" cols="30" rows="10" class="p-2 bg-[#e8f0fe] rounded-md border border-black"></textarea>
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="text-wrapper-2">Atendimento da Assessoria Pedagógica:</div>
-            <textarea name="atendimento_assessoria" id="assessoria" cols="30" rows="10" class="p-2 bg-[#e8f0fe] rounded-md border border-black"></textarea>
-          </div>
-          <div class="flex flex-col gap-2">
-            <div class="div">Encaminhamentos:</div>
-            <textarea name="encaminhamentos" id="encaminhamentos" cols="30" rows="10" class="p-2 bg-[#e8f0fe] rounded-md border border-black"></textarea>
-          </div>
-        </div>
-
-        <div class="flex justify-end mt-2">
-          <button type="submit" class="p-4 bg-[#35972f] text-white rounded-md hover:opacity-[0.8]">Registrar Atendimento</button>
-        </div>
+       <div class="flex flex-wrap p-4 gap-8 mt-6">
+       <?php
+        $resultado = $pdo->query('SELECT * FROM atendimento') ;
+        foreach ($resultado as $registro) {
+            echo '<div class="flex flex-col w-[400px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">';
+            echo '<div class="font-bold justify-end">'. $registro['matrícula'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Data Solicitação: </b>'. $registro['data_solicitação'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Solicitante: </b>'. $registro['solicitante'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Setor Solicitante: </b>'. $registro['setor_solicitante'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Período: </b>'. $registro['periodo'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Modalidade: </b>'. $registro['modalidade'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Ano: </b>'. $registro['ano'] .'</div>';
+            echo '<div class="flex justify-start "> <b>Relato Solicitação: </b>'. $registro['relato_solicitação'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Atendimento Acessoria Pedagogica: </b>'. $registro['atendimento_assessoria_pedagogica'] .'</div>';
+            echo '<div class="flex justify-start"> <b>Encaminhamentos: </b>'. $registro['encaminhamentos'] .'</div>';
+            echo '</div>';
+}
+       ?>
+      
       </div>
     </form>
 
   </div>
+</div>
 </body>
 
 </html>
