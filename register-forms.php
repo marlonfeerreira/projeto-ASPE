@@ -1,5 +1,5 @@
 <?php
-require_once("bd.php");
+  require_once("bd.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -59,13 +59,16 @@ require_once("bd.php");
             "Atendimento da Assessoria Pedagógica: $atendimentoAssessoria\n" .
             "Encaminhamentos: $encaminhamentos\n\n";
         
+          try{
+            $pdo->query("INSERT INTO atendimento(nome_discente,  matrícula, curso, data_solicitação, solicitante, setor_solicitante, periodo, modalidade, ano, relato_solicitação, atendimento_assessoria_pedagogica, encaminhamentos)
+            VALUES $nomeDiscente, $matricula, $curso, $dataSolicitacao, $solicitante, $setorSolicitante, $periodo, $modalidade, $ano, $relatoSolicitacao, $atendimentoAssessoria, $encaminhamentos");
+          }
+        catch (Exception $e) {
+          header("Location: home.php");
+          exit();
+        }
 
-        $pdo->query("INSERT INTO atendimento(nome_discente,  matrícula, curso, data_solicitação, solicitante, setor_solicitante, periodo, modalidade, ano, relato_solicitação, atendimento_assessoria_pedagogica, encaminhamentos)
-        VALUES $nomeDiscente, $matricula, $curso, $dataSolicitacao, $solicitante, $setorSolicitante, $periodo, $modalidade, $ano, $relatoSolicitacao, $atendimentoAssessoria, $encaminhamentos");
-
-        $arquivo = fopen($caminhoArquivo, "a");
-        fwrite($arquivo, $dadosRegistro);
-        fclose($arquivo);
+        
     }
     ?>
   <div class="forms-registro">

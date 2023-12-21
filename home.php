@@ -1,4 +1,7 @@
 <?php
+  require_once("bd.php");
+?>
+<?php
 // Verifica se o botão foi clicado
 if (isset($_POST['iniciar_atendimento'])) {
   // Redireciona para a página "register-forms"
@@ -35,7 +38,7 @@ if (isset($_POST['iniciar_atendimento'])) {
           <div class="text-wrapper-3">ASPE.IFPE</div>
         </div>
         <a href="home.php" class="text-wrapper-2">Home</a>
-        <button class="div">Relatórios</button>
+        <a href="visualizar-registro.php" class="text-wrapper-2">Relatorios</a>
         <div class="flex">
 
           <div class="flex gap-4 items-center">
@@ -62,24 +65,19 @@ if (isset($_POST['iniciar_atendimento'])) {
               </button>
             </form>
           </div>
-          <div class="flex flex-wrap p-4 gap-8 mt-6">
+           <div class="p-12 flex flex-col gap-8">
+       <div class="flex flex-wrap p-4 gap-8 mt-6">
+       <?php
+        $resultado = $pdo->query('SELECT * FROM atendimento LIMIT 8') ;
+        foreach ($resultado as $registro) {
+          echo '<div class="flex flex-col w-[200px] h-[100px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">';
+          echo '<div class="font-bold">'. $registro['matrícula'] .'</div>';
+          echo '<div class="flex justify-end">'. $registro['data_solicitação'] .'</div>';
+          echo '</div>';
 
-            <div class="flex flex-col w-[200px] h-[100px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">
-              <div class="font-bold">Regist4</div>
-              <div class="flex justify-end">12 Jan 2023</div>
-            </div>
-            <div class="flex flex-col w-[200px] h-[100px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">
-              <div class="font-bold">Regist3</div>
-              <div class="flex justify-end">12 Jan 2023</div>
-            </div>
-            <div class="flex flex-col w-[200px] h-[100px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">
-              <div class="font-bold">Regist2</div>
-              <div class="flex justify-end">12 Jan 2023</div>
-            </div>
-            <div class="flex flex-col w-[200px] h-[100px] bg-[#add9ab] rounded-md justify-between p-2 cursor-pointer hover:opacity-[0.8]">
-              <div class="font-bold">Regist1</div>
-              <div class="flex justify-end">12 Jan 2023</div>
-            </div>
+    // Exibe os dados do registro
+}
+       ?>
           </div>
         </div>
       </div>
